@@ -1,0 +1,23 @@
+# Private planning (never push internal playbooks)
+TEAM-WORK.private.md
+*.private.md
+
+# Local overrides and secrets
+includes/config.local.inc.php
+.env
+.env.*
+
+# User-generated uploads (adjust if your app uses a different path)
+uploads/
+images/gallery/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*~
+
+# Optional: uncomment if you do not want IDE settings in the repo
+# .idea/
+# .vscode/
