@@ -1,64 +1,73 @@
-# Web Programming Seminar — Group Project
+# Web Programming Seminar Project
 
-A PHP web application built on the **Front Controller** pattern (course Solution-2 with user management), extended to meet the seminar homework requirements. The public site theme and data model should match **one database source** chosen from the course Google Drive folder (replace placeholders below once you select it).
+This repository contains our seminar homework built from the **7a Front Controller (Solution-2)** base provided in class.  
+The goal is to extend that base step by step and keep clear GitHub history from both team members.
 
-## Stack
+## Tech Used
 
-- **PHP** — routing, sessions, forms, PDO database access  
-- **HTML5** — semantic structure, horizontal navigation  
-- **CSS** — layout, responsive design  
-- **JavaScript** — client-side form validation and UI behaviour  
+- PHP
+- HTML5
+- CSS
+- JavaScript
+- MySQL / MariaDB
 
-## Architecture (Front Controller)
+## Project Idea
 
-- Entry point: [`index.php`](index.php) reads `QUERY_STRING` and resolves the active page from `$pages` in [`includes/config.inc.php`](includes/config.inc.php).
-- Optional per-page logic: [`logicals/{page}.php`](logicals/) (included from [`templates/index.tpl.php`](templates/index.tpl.php) when present).
-- Layout and page body: [`templates/index.tpl.php`](templates/index.tpl.php) and [`templates/pages/{page}.tpl.php`](templates/pages/).
+Our website theme is a **city explorer portal**.  
+The pages are organized through the front controller and route config in:
 
-## Project structure
+- `index.php`
+- `includes/config.inc.php`
+- `templates/index.tpl.php`
 
-| Path | Purpose |
-|------|---------|
-| `includes/` | Global config (e.g. `config.inc.php`) |
-| `logicals/` | PHP logic loaded before templates |
-| `templates/` | Main layout; `pages/` holds per-route templates |
-| `styles/` | CSS |
-| `images/` | Static images (e.g. logo) |
-| `uploads/` | *(when implemented)* user-uploaded gallery files — do not commit large binaries if policy requires |
-| `databaselesson.sql` | Sample SQL — **replace or extend** with your chosen dataset import |
+## Folder Overview
 
-## Local setup
+- `includes/` - app configuration and route setup
+- `logicals/` - page-specific PHP logic
+- `templates/` - main layout and route templates
+- `styles/` - CSS files
+- `images/` - static assets and local short video
+- `databaselesson.sql` - current SQL base (to be replaced/extended with selected course dataset)
 
-This folder is both the **Git repository root** (when you run `git init` here) and the **web application root** for local hosting.
+## Run Locally
 
-1. **Web server:** Point the document root at this directory, or run PHP’s built-in server from this folder (e.g. `php -S localhost:8080`).
-2. **Database:** Create a MySQL/MariaDB database; import your chosen SQL dump (start from `databaselesson.sql` if still applicable).
-3. **Configuration:** Set PDO connection parameters in `includes/config.inc.php` for your local DB. For production/hosting, prefer a non-committed local override (e.g. `config.local.inc.php`) so passwords are not pushed to GitHub.
+1. Open this folder as the project root.
+2. Import SQL into your local database.
+3. Update DB connection values in `includes/config.inc.php`.
+4. Run with local web server (Apache or `php -S localhost:8080` from this folder).
 
-## Homework requirements (checklist)
+## Professor Checklist (Implementation Targets)
 
-Use this list when implementing and when writing the PDF documentation (with screenshots and URLs).
+- [x] Start from Solution-2 front controller base
+- [x] Horizontal menu structure prepared
+- [x] Basic responsive layout started
+- [x] Mainpage includes:
+  - local video (<=5 seconds)
+  - embedded YouTube video
+  - Google map section
+- [ ] Registration / login / logout behavior final verification
+- [ ] Images page with upload (logged-in users only)
+- [ ] Contact form with JS + PHP validation
+- [ ] Contact data storage and result page
+- [ ] Messages page (logged-in only, newest first, Guest fallback)
+- [ ] CRUD for one selected imported table
+- [ ] Final hosting deployment
+- [ ] PDF documentation (15+ pages) with screenshots and full requirement mapping
 
-- [ ] **Front Controller** — extend the provided Solution-2 pattern (mandatory base).
-- [ ] **Responsive design** — usable on small and large screens.
-- [ ] **HTML5 + horizontal menu** — semantic elements; main navigation horizontal.
-- [ ] **Registration / Login / Logout** — menu rules: Login visible when logged out; Logout when logged in; combined login/register entry as specified; **no auto-login after registration**; header shows: `Logged-in: Family_name Surname (Login_name)` when applicable.
-- [ ] **Guest menus:** Mainpage, Images, Contact, CRUD, Login (when not logged in).
-- [ ] **Mainpage** — themed intro; **two videos** (one local ≤5 s, one e.g. YouTube); **Google Map** for the site’s chosen address.
-- [ ] **Images** — gallery; **upload only for logged-in** users.
-- [ ] **Contact** — form to message the owner; **client + server validation** (not relying on HTML-only checks as per assignment); store in DB; **fifth page** showing submitted content as specified.
-- [ ] **Messages** — logged-in only; table from DB, **newest first**; time + sender name, **“Guest”** for non-logged-in senders.
-- [ ] **CRUD** — import tables from chosen DB files; full CRUD on **one** table with routed pages.
-- [ ] **Hosting** — deploy publicly; document URL and FTP/credentials in the PDF.
-- [ ] **GitHub** — **public** repo; **at least five** incremental commits (partial states), not a single final dump.
-- [ ] **Language** — English sitewide.
-- [ ] **Documentation** — each member submits `Name-NeptunCode.pdf` (15+ pages, screenshots, GitHub + live URLs, where each requirement was implemented).
+## GitHub Workflow for Grading
 
-## Credits
+- Repository is public.
+- Work is committed in small steps (not one final upload).
+- Both contributors must appear in commit history with their own Git identities.
+- Contribution split will be explained in submitted PDF documentation.
 
-Group work. **Which member implemented which part** must be stated in the **submitted PDF documentation** (and reflected in Git history with correct `user.name` / email per contributor).
+## Notes
 
-## Links (fill in after deployment)
+- Site language is English (required by assignment).
+- Do not commit private credentials.
+- Internal planning notes are kept out of GitHub using `.gitignore`.
 
-- **Live site:** _TBD_
-- **GitHub repository:** _TBD_
+## Links
+
+- Live URL: _to be added after deployment_
+- GitHub URL: _to be added after final review_
