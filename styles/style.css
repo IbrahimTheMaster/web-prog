@@ -64,6 +64,17 @@ main#content img{
     border: 3px solid blue;
 }
 
+.media-section {
+    margin-top: 18px;
+}
+
+.media-section video,
+.media-section iframe {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 8px;
+}
+
 footer {
     border-radius: 10px;
     margin: 10px;
