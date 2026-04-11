@@ -1,0 +1,28 @@
+.contact-result-summary {
+    margin: 1rem 0 1.5rem;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 2px solid #3399cc;
+    border-radius: 8px;
+    max-width: 40rem;
+}
+
+.contact-result-summary dt {
+    font-weight: bold;
+    color: #003366;
+    margin-top: 0.75rem;
+}
+
+.contact-result-summary dt:first-child {
+    margin-top: 0;
+}
+
+.contact-result-summary dd {
+    margin: 0.25rem 0 0 0;
+    padding: 0;
+}
+
+.contact-result-body {
+    white-space: normal;
+    word-break: break-word;
+}
