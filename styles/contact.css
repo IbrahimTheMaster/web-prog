@@ -1,0 +1,74 @@
+.required-mark {
+    color: #c00;
+    font-weight: bold;
+}
+
+.contact-fieldset {
+    border: 2px solid #3399cc;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    background: #fff;
+}
+
+.contact-fieldset legend {
+    margin-left: 0.5rem;
+    padding: 0 0.5rem;
+    font-weight: bold;
+    color: #003366;
+}
+
+.contact-fieldset input[type="text"],
+.contact-fieldset input[type="email"],
+.contact-fieldset textarea {
+    width: 100%;
+    max-width: 32rem;
+    box-sizing: border-box;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #3399cc;
+    border-radius: 4px;
+}
+
+.contact-fieldset textarea {
+    resize: vertical;
+    min-height: 8rem;
+}
+
+#contact-submit {
+    padding: 0.45rem 1.25rem;
+    font-weight: bold;
+    background: #ff6600;
+    color: #003366;
+    border: 2px solid #003366;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#contact-submit:hover {
+    background: #ffc266;
+}
+
+.field-error {
+    display: block;
+    color: #900;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.form-errors {
+    color: #900;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: #ffe0e0;
+    border-radius: 6px;
+    border: 1px solid #c00;
+}
+
+.contact-map {
+    margin-top: 1.5rem;
+}
+
+.contact-map iframe {
+    border-radius: 8px;
+}

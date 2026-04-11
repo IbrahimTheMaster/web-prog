@@ -1,9 +1,11 @@
 <?php
-/*
- * Day 2 scaffold for contact message processing.
- * Full validation (JS + PHP) and INSERT implementation is planned for Day 3.
+/**
+ * Contact page: form state (Day 3 — server processing added in next commit).
  */
-
-$contact_form_ready = true;
-$contact_stub_fields = array('sender_name', 'sender_email', 'subject', 'message_body');
-?>
+$contact_errors = array();
+$contact_old = array(
+    'sender_name' => '',
+    'sender_email' => '',
+    'subject' => '',
+    'message_body' => '',
+);
