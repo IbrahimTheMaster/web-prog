@@ -7,9 +7,10 @@ includes/config.local.inc.php
 .env
 .env.*
 
-# User-generated uploads (adjust if your app uses a different path)
-uploads/
-images/gallery/
+# User-generated uploads (root-only; app uses images/uploads/ tracked via .gitkeep)
+/uploads/
+/images/uploads/*
+!/images/uploads/.gitkeep
 
 # OS and editor noise
 .DS_Store
