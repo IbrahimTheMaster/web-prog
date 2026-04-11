@@ -1,8 +1,10 @@
 <?php
-/*
- * Day 2 placeholder for the contact result route.
- * This page will display submitted message data after server-side validation.
+/**
+ * Fifth page: show submitted contact data after successful INSERT (session flash).
  */
-
-$contact_result_placeholder = true;
-?>
+if (!isset($_SESSION['contact_result'])) {
+    header('Location: contact');
+    exit;
+}
+$contact_result = $_SESSION['contact_result'];
+unset($_SESSION['contact_result']);

@@ -12,7 +12,10 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         $sth->execute(array(':user_name' => $_POST['username'], ':password' => $_POST['password']));
         $row = $sth->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $_SESSION['fn'] = $row['first_name']; $_SESSION['ln'] = $row['last_name']; $_SESSION['login'] = $_POST['username'];
+            $_SESSION['fn'] = $row['first_name'];
+            $_SESSION['ln'] = $row['last_name'];
+            $_SESSION['login'] = $_POST['username'];
+            $_SESSION['user_id'] = (int) $row['id'];
         }
     }
     catch (PDOException $e) {
