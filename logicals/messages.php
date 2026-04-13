@@ -20,7 +20,7 @@ try {
     $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
     $sql = 'SELECT id, sender_name, sender_email, subject, message_body, user_id, created_at
             FROM messages
-            ORDER BY created_at DESC';
+            ORDER BY created_at DESC, id DESC';
     $sth = $dbh->query($sql);
     $messages_list = $sth->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {

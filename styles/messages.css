@@ -53,5 +53,10 @@
     .messages-table th,
     .messages-table td {
         font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+
+    .messages-cell-body {
+        max-width: 14rem;
     }
 }

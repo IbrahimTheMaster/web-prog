@@ -20,8 +20,9 @@
             <?php foreach ($messages_list as $row) {
                 $ts = isset($row['created_at']) ? strtotime($row['created_at']) : false;
                 $when = $ts ? date('Y-m-d H:i', $ts) : htmlspecialchars((string) $row['created_at'], ENT_QUOTES, 'UTF-8');
-                $is_guest = ($row['user_id'] === null || $row['user_id'] === '');
-                $sender_label = $is_guest ? 'Guest' : htmlspecialchars($row['sender_name'], ENT_QUOTES, 'UTF-8');
+                $sender_name = trim((string) $row['sender_name']);
+                $is_guest = ($row['user_id'] === null || $row['user_id'] === '' || $sender_name === '');
+                $sender_label = $is_guest ? 'Guest' : htmlspecialchars($sender_name, ENT_QUOTES, 'UTF-8');
                 ?>
             <tr>
                 <td><?= htmlspecialchars($when, ENT_QUOTES, 'UTF-8') ?></td>
