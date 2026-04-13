@@ -27,7 +27,8 @@ The pages are organized through the front controller and route config in:
 - `templates/` - main layout and route templates
 - `styles/` - CSS files
 - `images/` - static assets and local short video
-- `databaselesson.sql` - current SQL base (to be replaced/extended with selected course dataset)
+- `databaselesson.sql` - base SQL schema used in development
+- `city_places_schema.sql` - selected dataset table used for CRUD (Day 4)
 
 ## Run Locally
 
