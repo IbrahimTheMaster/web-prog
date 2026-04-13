@@ -28,13 +28,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload_image'])) {
             $uploadErrors[] = 'Allowed formats: jpg, jpeg, png, gif, webp.';
         } elseif ($size <= 0 || $size > $maxUploadBytes) {
             $uploadErrors[] = 'Maximum upload size is 3 MB.';
+        } elseif (!is_uploaded_file($tmpName)) {
+            $uploadErrors[] = 'Invalid upload source.';
         } else {
+            $finfo = @finfo_open(FILEINFO_MIME_TYPE);
+            $mime = $finfo ? (string) finfo_file($finfo, $tmpName) : '';
+            if ($finfo) {
+                finfo_close($finfo);
+            }
+            $allowedMimes = array('image/jpeg', 'image/png', 'image/gif', 'image/webp');
+            if ($mime !== '' && !in_array($mime, $allowedMimes, true)) {
+                $uploadErrors[] = 'Uploaded file is not a valid image.';
+            }
+        }
+
+        if (empty($uploadErrors)) {
             $safeBase = preg_replace('/[^a-zA-Z0-9_-]/', '-', pathinfo($originalName, PATHINFO_FILENAME));
             $safeBase = trim((string) $safeBase, '-');
             if ($safeBase === '') {
                 $safeBase = 'upload';
             }
-            $finalName = $safeBase . '-' . date('YmdHis') . '.' . $ext;
+            $finalName = $safeBase . '-' . date('YmdHis') . '-' . bin2hex(random_bytes(2)) . '.' . $ext;
             $targetPath = $uploadsDir . '/' . $finalName;
             if (move_uploaded_file($tmpName, $targetPath)) {
                 $uploadSuccess = 'Upload successful: ' . $finalName;

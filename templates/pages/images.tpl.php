@@ -17,7 +17,7 @@
     <?php } ?>
     <?php if (isset($_SESSION['login'])) { ?>
         <form action="images" method="post" enctype="multipart/form-data" class="upload-form">
-            <label for="image_file">Image file (jpg, png, gif, webp, max 3 MB):</label><br>
+            <label for="image_file">Image file (jpg, png, gif, webp, max 3 MB, checked server-side):</label><br>
             <input type="file" name="image_file" id="image_file" accept=".jpg,.jpeg,.png,.gif,.webp" required>
             <button type="submit" name="upload_image" value="1">Upload</button>
         </form>
