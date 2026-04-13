@@ -8,6 +8,7 @@ $allowedExt = array('jpg', 'jpeg', 'png', 'gif', 'webp');
 $maxUploadBytes = 3 * 1024 * 1024;
 $uploadErrors = array();
 $uploadSuccess = '';
+$uploadHistory = array();
 
 if (!is_dir($uploadsDir)) {
     mkdir($uploadsDir, 0775, true);
@@ -52,6 +53,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload_image'])) {
             $targetPath = $uploadsDir . '/' . $finalName;
             if (move_uploaded_file($tmpName, $targetPath)) {
                 $uploadSuccess = 'Upload successful: ' . $finalName;
+                try {
+                    $dbh = new PDO(
+                        'mysql:host=localhost;dbname=databaselesson',
+                        'root',
+                        '',
+                        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+                    );
+                    $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+                    $stmt = $dbh->prepare('INSERT INTO image_uploads (file_name, uploaded_by) VALUES (:file_name, :uploaded_by)');
+                    $stmt->execute(array(
+                        ':file_name' => $finalName,
+                        ':uploaded_by' => (string) $_SESSION['login'],
+                    ));
+                } catch (PDOException $e) {
+                    // Upload still succeeds even if metadata table is not present yet.
+                }
             } else {
                 $uploadErrors[] = 'Upload failed while saving the file.';
             }
@@ -79,3 +96,17 @@ $collectImages = function ($dir) use ($allowedExt) {
 
 $galleryImages = $collectImages($galleryDir);
 $uploadImages = $collectImages($uploadsDir);
+
+try {
+    $dbh = new PDO(
+        'mysql:host=localhost;dbname=databaselesson',
+        'root',
+        '',
+        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
+    );
+    $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+    $stmt = $dbh->query('SELECT file_name, uploaded_by, uploaded_at FROM image_uploads ORDER BY uploaded_at DESC');
+    $uploadHistory = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $uploadHistory = array();
+}

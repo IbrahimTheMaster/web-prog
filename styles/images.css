@@ -39,6 +39,23 @@
     padding: 0.5rem 1rem;
 }
 
+.upload-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.upload-history-table th,
+.upload-history-table td {
+    border: 1px solid #9cc7de;
+    padding: 0.35rem 0.5rem;
+    text-align: left;
+}
+
+.upload-history-table th {
+    background: #d8edf8;
+}
+
 .gallery-grid {
     list-style: none;
     margin: 0;

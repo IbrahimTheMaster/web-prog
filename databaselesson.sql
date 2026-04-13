@@ -63,3 +63,14 @@ ON DUPLICATE KEY UPDATE
  `district` = VALUES(`district`),
  `category` = VALUES(`category`),
  `ticket_price` = VALUES(`ticket_price`);
+
+CREATE TABLE IF NOT EXISTS `image_uploads` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `file_name` varchar(190) NOT NULL,
+  `uploaded_by` varchar(60) NOT NULL,
+  `uploaded_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_image_uploads_uploaded_at` (`uploaded_at`)
+)
+ENGINE = MYISAM
+CHARACTER SET utf8 COLLATE utf8_general_ci;

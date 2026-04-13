@@ -69,3 +69,23 @@
         </ul>
     <?php } ?>
 </section>
+
+<?php if (!empty($uploadHistory)) { ?>
+<section class="gallery-section" aria-labelledby="gallery-upload-history-heading">
+    <h3 id="gallery-upload-history-heading">Recent upload activity</h3>
+    <table class="upload-history-table">
+        <tr>
+            <th>Time</th>
+            <th>User</th>
+            <th>File</th>
+        </tr>
+        <?php foreach ($uploadHistory as $row) { ?>
+            <tr>
+                <td><?= htmlspecialchars((string) $row['uploaded_at'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars((string) $row['uploaded_by'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars((string) $row['file_name'], ENT_QUOTES, 'UTF-8') ?></td>
+            </tr>
+        <?php } ?>
+    </table>
+</section>
+<?php } ?>
