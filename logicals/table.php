@@ -13,6 +13,10 @@ $editingId = isset($_SESSION['crud_editing_id']) ? (int) $_SESSION['crud_editing
 $editRow = null;
 $searchQuery = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
 $categoryFilter = isset($_GET['category']) ? trim((string) $_GET['category']) : '';
+if (!isset($_SESSION['crud_csrf'])) {
+    $_SESSION['crud_csrf'] = bin2hex(random_bytes(16));
+}
+$crudCsrf = (string) $_SESSION['crud_csrf'];
 
 $crudForm = array(
     'place_name' => '',
@@ -35,15 +39,21 @@ try {
 }
 
 if ($pdo && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $postedToken = isset($_POST['csrf_token']) ? (string) $_POST['csrf_token'] : '';
+    if (!hash_equals($crudCsrf, $postedToken)) {
+        $crudErrors[] = 'Invalid request token. Please refresh and try again.';
+    }
     $cancelEdit = false;
-    if (isset($_POST['cancel_edit'])) {
+    if (empty($crudErrors) && isset($_POST['cancel_edit'])) {
         $editingId = 0;
         unset($_SESSION['crud_editing_id']);
         $cancelEdit = true;
     }
     $action = isset($_POST['action']) ? (string) $_POST['action'] : '';
 
-    if ($cancelEdit) {
+    if (!empty($crudErrors)) {
+        // keep errors
+    } elseif ($cancelEdit) {
         // no-op when cancelled
     } elseif ($action === 'create' || $action === 'update') {
         $crudForm['place_name'] = trim((string) ($_POST['place_name'] ?? ''));
@@ -98,7 +108,11 @@ if ($pdo && $_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':ticket_price' => $crudForm['ticket_price'],
                         ':id' => $id,
                     ));
-                    $crudNotice = 'Place updated successfully.';
+                    if ($stmt->rowCount() === 0) {
+                        $crudErrors[] = 'No changes saved or record not found.';
+                    } else {
+                        $crudNotice = 'Place updated successfully.';
+                    }
                     $editingId = 0;
                     unset($_SESSION['crud_editing_id']);
                 }
@@ -118,7 +132,11 @@ if ($pdo && $_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($id > 0) {
             $stmt = $pdo->prepare('DELETE FROM city_places WHERE id = :id');
             $stmt->execute(array(':id' => $id));
-            $crudNotice = 'Place deleted successfully.';
+            if ($stmt->rowCount() > 0) {
+                $crudNotice = 'Place deleted successfully.';
+            } else {
+                $crudErrors[] = 'Record was not found for deletion.';
+            }
             if ($editingId === $id) {
                 $editingId = 0;
             }

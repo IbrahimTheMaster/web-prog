@@ -30,6 +30,7 @@
 <?php } ?>
 
 <form class="crud-form" action="crud" method="post">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($crudCsrf, ENT_QUOTES, 'UTF-8') ?>">
     <input type="hidden" name="action" value="<?= ($editingId > 0 ? 'update' : 'create') ?>">
     <?php if ($editingId > 0) { ?>
         <input type="hidden" name="id" value="<?= (int) $editingId ?>">
@@ -75,11 +76,13 @@
             <td><?= htmlspecialchars((string) $row['ticket_price'], ENT_QUOTES, 'UTF-8') ?></td>
             <td>
                 <form class="inline-edit" action="crud" method="post">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($crudCsrf, ENT_QUOTES, 'UTF-8') ?>">
                     <input type="hidden" name="action" value="start_edit">
                     <input type="hidden" name="id" value="<?= (int) $row['id'] ?>">
                     <button type="submit">Edit</button>
                 </form>
                 <form class="inline-delete" action="crud" method="post">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($crudCsrf, ENT_QUOTES, 'UTF-8') ?>">
                     <input type="hidden" name="action" value="delete">
                     <input type="hidden" name="id" value="<?= (int) $row['id'] ?>">
                     <button type="submit" onclick="return confirm('Delete this place?')">Delete</button>
