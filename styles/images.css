@@ -16,6 +16,29 @@
     font-style: italic;
 }
 
+.upload-form input[type="file"] {
+    margin: 0.6rem 0;
+}
+
+.upload-form button {
+    margin-left: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    font-weight: bold;
+}
+
+.upload-success {
+    color: #0a5c1b;
+    font-weight: bold;
+}
+
+.upload-errors {
+    color: #900;
+    background: #ffe2e2;
+    border: 1px solid #c66;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+}
+
 .gallery-grid {
     list-style: none;
     margin: 0;

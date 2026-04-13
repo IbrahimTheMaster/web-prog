@@ -1,7 +1,30 @@
 <h2>Images Gallery</h2>
 <p class="gallery-intro">
-    Curated city photos below. The uploads folder is prepared for logged-in users; upload support comes in the next milestone.
+    Curated city photos below. Logged-in users can upload new images to the community section.
 </p>
+
+<section class="gallery-section" aria-labelledby="gallery-upload-heading">
+    <h3 id="gallery-upload-heading">Upload a new image</h3>
+    <?php if (!empty($uploadSuccess)) { ?>
+        <p class="upload-success"><?= htmlspecialchars($uploadSuccess, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php } ?>
+    <?php if (!empty($uploadErrors)) { ?>
+        <ul class="upload-errors">
+            <?php foreach ($uploadErrors as $error) { ?>
+                <li><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></li>
+            <?php } ?>
+        </ul>
+    <?php } ?>
+    <?php if (isset($_SESSION['login'])) { ?>
+        <form action="images" method="post" enctype="multipart/form-data" class="upload-form">
+            <label for="image_file">Image file (jpg, png, gif, webp, max 3 MB):</label><br>
+            <input type="file" name="image_file" id="image_file" accept=".jpg,.jpeg,.png,.gif,.webp" required>
+            <button type="submit" name="upload_image" value="1">Upload</button>
+        </form>
+    <?php } else { ?>
+        <p class="gallery-empty">Login first to upload images.</p>
+    <?php } ?>
+</section>
 
 <section class="gallery-section" aria-labelledby="gallery-curated-heading">
     <h3 id="gallery-curated-heading">Featured gallery</h3>
