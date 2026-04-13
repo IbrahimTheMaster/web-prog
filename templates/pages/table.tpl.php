@@ -1,6 +1,22 @@
 <h2>CRUD - City Places Dataset</h2>
 <p>Logged-in users can create, edit, and delete records in the <code>city_places</code> table.</p>
 
+<form class="crud-filter-form" action="crud" method="get">
+    <label for="crud-q">Search place or district</label>
+    <input id="crud-q" type="text" name="q" value="<?= htmlspecialchars($searchQuery, ENT_QUOTES, 'UTF-8') ?>">
+    <label for="crud-category">Category</label>
+    <select id="crud-category" name="category">
+        <option value="">All</option>
+        <?php foreach ($crudCategories as $cat) { ?>
+            <option value="<?= htmlspecialchars((string) $cat, ENT_QUOTES, 'UTF-8') ?>"<?= ($categoryFilter === (string) $cat ? ' selected' : '') ?>>
+                <?= htmlspecialchars((string) $cat, ENT_QUOTES, 'UTF-8') ?>
+            </option>
+        <?php } ?>
+    </select>
+    <button type="submit">Filter</button>
+    <a class="crud-cancel" href="crud">Reset</a>
+</form>
+
 <?php if (!empty($crudNotice)) { ?>
     <p class="crud-notice"><?= htmlspecialchars($crudNotice, ENT_QUOTES, 'UTF-8') ?></p>
 <?php } ?>

@@ -11,6 +11,8 @@ $crudErrors = array();
 $crudNotice = '';
 $editingId = isset($_SESSION['crud_editing_id']) ? (int) $_SESSION['crud_editing_id'] : 0;
 $editRow = null;
+$searchQuery = isset($_GET['q']) ? trim((string) $_GET['q']) : '';
+$categoryFilter = isset($_GET['category']) ? trim((string) $_GET['category']) : '';
 
 $crudForm = array(
     'place_name' => '',
@@ -76,8 +78,10 @@ if ($pdo && $_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':category' => $crudForm['category'],
                     ':ticket_price' => $crudForm['ticket_price'],
                 ));
-                $crudNotice = 'Place created successfully.';
+                $_SESSION['crud_notice'] = 'Place created successfully.';
                 $crudForm = array('place_name' => '', 'district' => '', 'category' => '', 'ticket_price' => '');
+                header('Location: crud');
+                exit;
             } else {
                 $id = (int) ($_POST['id'] ?? 0);
                 if ($id <= 0) {
@@ -141,7 +145,32 @@ if ($pdo && $editingId > 0) {
 }
 
 $crudRows = array();
+$crudCategories = array();
 if ($pdo) {
-    $stmt = $pdo->query('SELECT id, place_name, district, category, ticket_price FROM city_places ORDER BY id ASC');
+    if (isset($_SESSION['crud_notice'])) {
+        $crudNotice = (string) $_SESSION['crud_notice'];
+        unset($_SESSION['crud_notice']);
+    }
+
+    $categoryStmt = $pdo->query('SELECT DISTINCT category FROM city_places ORDER BY category ASC');
+    $crudCategories = $categoryStmt->fetchAll(PDO::FETCH_COLUMN);
+
+    $conditions = array();
+    $params = array();
+    if ($searchQuery !== '') {
+        $conditions[] = '(place_name LIKE :search OR district LIKE :search)';
+        $params[':search'] = '%' . $searchQuery . '%';
+    }
+    if ($categoryFilter !== '') {
+        $conditions[] = 'category = :category';
+        $params[':category'] = $categoryFilter;
+    }
+    $sql = 'SELECT id, place_name, district, category, ticket_price FROM city_places';
+    if (!empty($conditions)) {
+        $sql .= ' WHERE ' . implode(' AND ', $conditions);
+    }
+    $sql .= ' ORDER BY id ASC';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
     $crudRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

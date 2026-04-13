@@ -7,6 +7,19 @@
     margin-bottom: 1rem;
 }
 
+.crud-filter-form {
+    margin: 0.8rem 0 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.crud-filter-form input,
+.crud-filter-form select {
+    padding: 0.3rem 0.4rem;
+}
+
 .crud-form input {
     width: 100%;
     max-width: 24rem;
