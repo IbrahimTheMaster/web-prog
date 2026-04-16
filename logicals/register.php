@@ -2,8 +2,8 @@
 if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['firstname']) && isset($_POST['lastname'])) {
     try {
         // Connecting
-        $dbh = new PDO('mysql:host=localhost;dbname=databaselesson', 'root', '', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-        $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+        $dbh = new PDO('mysql:host='.$db['host'].';dbname='.$db['name'], $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+        $dbh->query('SET NAMES '.$db['charset'].' COLLATE '.$db['charset'].'_general_ci');
         
         // Does the username already exist?
         $sqlSelect = "select id from users where user_name = :username";

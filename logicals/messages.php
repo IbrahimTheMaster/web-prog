@@ -12,12 +12,12 @@ $messages_error = '';
 
 try {
     $dbh = new PDO(
-        'mysql:host=localhost;dbname=databaselesson',
-        'root',
-        '',
+        'mysql:host='.$db['host'].';dbname='.$db['name'],
+        $db['user'],
+        $db['pass'],
         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
     );
-    $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+    $dbh->query('SET NAMES '.$db['charset'].' COLLATE '.$db['charset'].'_general_ci');
     $sql = 'SELECT id, sender_name, sender_email, subject, message_body, user_id, created_at
             FROM messages
             ORDER BY created_at DESC, id DESC';

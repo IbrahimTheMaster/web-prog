@@ -11,10 +11,11 @@ $contact_old = array(
 );
 
 $contact_pdo = function () {
+    global $db;
     return new PDO(
-        'mysql:host=localhost;dbname=databaselesson',
-        'root',
-        '',
+        'mysql:host='.$db['host'].';dbname='.$db['name'],
+        $db['user'],
+        $db['pass'],
         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
     );
 };
@@ -64,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         try {
             $dbh = $contact_pdo();
-            $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+            $dbh->query('SET NAMES '.$db['charset'].' COLLATE '.$db['charset'].'_general_ci');
             $sql = 'INSERT INTO messages (sender_name, sender_email, subject, message_body, user_id)
                     VALUES (:sender_name, :sender_email, :subject, :message_body, :user_id)';
             $stmt = $dbh->prepare($sql);

@@ -1,6 +1,7 @@
 # Private planning (never push internal playbooks)
 TEAM-WORK.private.md
 *.private.md
+*.private.tex
 
 # Local overrides and secrets
 includes/config.local.inc.php

@@ -55,12 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload_image'])) {
                 $uploadSuccess = 'Upload successful: ' . $finalName;
                 try {
                     $dbh = new PDO(
-                        'mysql:host=localhost;dbname=databaselesson',
-                        'root',
-                        '',
+                        'mysql:host='.$db['host'].';dbname='.$db['name'],
+                        $db['user'],
+                        $db['pass'],
                         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
                     );
-                    $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+                    $dbh->query('SET NAMES '.$db['charset'].' COLLATE '.$db['charset'].'_general_ci');
                     $stmt = $dbh->prepare('INSERT INTO image_uploads (file_name, uploaded_by) VALUES (:file_name, :uploaded_by)');
                     $stmt->execute(array(
                         ':file_name' => $finalName,
@@ -99,12 +99,12 @@ $uploadImages = $collectImages($uploadsDir);
 
 try {
     $dbh = new PDO(
-        'mysql:host=localhost;dbname=databaselesson',
-        'root',
-        '',
+        'mysql:host='.$db['host'].';dbname='.$db['name'],
+        $db['user'],
+        $db['pass'],
         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
     );
-    $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+    $dbh->query('SET NAMES '.$db['charset'].' COLLATE '.$db['charset'].'_general_ci');
     $stmt = $dbh->query('SELECT file_name, uploaded_by, uploaded_at FROM image_uploads ORDER BY uploaded_at DESC');
     $uploadHistory = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {

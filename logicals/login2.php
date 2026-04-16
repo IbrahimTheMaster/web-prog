@@ -2,9 +2,9 @@
 if(isset($_POST['username']) && isset($_POST['password'])) {
     try {
         // Connect
-        $dbh = new PDO('mysql:host=localhost;dbname=databaselesson', 'root', '',
+        $dbh = new PDO('mysql:host='.$db['host'].';dbname='.$db['name'], $db['user'], $db['pass'],
                         array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-        $dbh->query('SET NAMES utf8 COLLATE utf8_general_ci');
+        $dbh->query('SET NAMES '.$db['charset'].' COLLATE '.$db['charset'].'_general_ci');
         
         // Search user
         $sqlSelect = "select id, first_name, last_name from users where user_name = :user_name and password = sha1(:password)";

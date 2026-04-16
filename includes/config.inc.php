@@ -1,4 +1,12 @@
 <?php
+$db = array(
+    'host' => 'localhost',
+    'name' => 'databaselesson',
+    'user' => 'webprog',
+    'pass' => 'webprog123',
+    'charset' => 'utf8',
+);
+
 $pagetitle = array(
     'title' => 'City Explorer Portal',
 );

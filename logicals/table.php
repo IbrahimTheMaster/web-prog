@@ -28,12 +28,12 @@ $crudForm = array(
 $pdo = null;
 try {
     $pdo = new PDO(
-        'mysql:host=localhost;dbname=databaselesson',
-        'root',
-        '',
+        'mysql:host='.$db['host'].';dbname='.$db['name'],
+        $db['user'],
+        $db['pass'],
         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
     );
-    $pdo->query('SET NAMES utf8 COLLATE utf8_general_ci');
+    $pdo->query('SET NAMES '.$db['charset'].' COLLATE '.$db['charset'].'_general_ci');
 } catch (PDOException $e) {
     $crudErrors[] = 'Database connection failed.';
 }
